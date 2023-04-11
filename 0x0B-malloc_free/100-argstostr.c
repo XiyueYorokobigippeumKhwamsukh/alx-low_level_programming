@@ -5,50 +5,49 @@
 /**
   * *argstostr - a function that concatenates all
   * the arguments of your program.
-  * @ac: argument 1
-  * @av: argument 2
+  * @ac: argument count
+  * @av: array of pointers to arguments
   * Return: NULL if ac == 0 or av == NULL
   * a pointer to a new string, or NULL if it fails
   */
 
 char *argstostr(int ac, char **av)
 {
-	int total_length;
-	int i;
-	char *result;
-	int current_pos;
-	int arg_length;
+	int len, i, j, index;
+	char *str;
 
 	if (ac == 0 || av == NULL)
 	{
 		return (NULL);
 	}
-
-	total_length = 0;
+	len = 0;
 
 	for (i = 0; i < ac; i++)
 	{
-		total_length += strlen(av[i]) + 1;
+		for (j = 0; av[i][j] != '\0'; j++)
+		{
+			len++;
+		len++;
+		}
 	}
+	str = malloc(sizeof(char) * (len + 1));
 
-	result = (char *) malloc(total_length * sizeof(char));
-
-	if (result == NULL)
+	if (str == NULL)
 	{
 		return (NULL);
 	}
-
-	current_pos = 0;
+	index = 0;
 
 	for (i = 0; i < ac; i++)
 	{
-		arg_length = strlen(av[i]);
-
-		memcpy(result + current_pos, av[i], arg_length);
-
-		current_pos += arg_length;
-		result[current_pos] = '\n';
-		current_pos++;
+		for (j = 0; av[i][j] != '\0'; j++)
+		{
+		str[index] = av[i][j];
+		index++;
+		}
+		str[index] = '\n';
+		index++;
 	}
-	return (result);
+		str[index] = '\0';
+		return (str);
 }
