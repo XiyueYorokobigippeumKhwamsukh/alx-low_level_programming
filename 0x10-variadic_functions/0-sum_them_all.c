@@ -6,23 +6,23 @@
   * @n: first parameter of the unsigned function
   * @...: indicate that the function accepts a variable
   * number of arguments of any type
-  * Return: sum
+  * Return: If n == 0 - 0.
+  * Otherwise - the sum of all parameters
   */
 
 int sum_them_all(const unsigned int n, ...)
 {
-	va_list args;
+	va_list ap;
 
-	int sum = 0;
-	unsigned int j;
+	unsigned int j, sum = 0;
 
-	va_start(args, n);
+	va_start(ap, n);
 
 	for (j = 0; j < n; j++)
 	{
-		sum += va_arg(args, int);
+		sum += va_arg(ap, int);
 	}
-	va_end(args);
+	va_end(ap);
 
 	return (sum);
 }
